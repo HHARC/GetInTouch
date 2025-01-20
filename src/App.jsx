@@ -1,14 +1,18 @@
-import { useState } from "react";
 import "./App.css";
 import Home from "./pages/Home";
-function App() {
-  const [count, setCount] = useState(0);
+import LandingPage from "./pages/LandingPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-  return (
-    <>
-      <Home />
-    </>
-  );
+function App() {
+
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/Chat" element={<Home />} />
+                <Route path="/" element={<LandingPage />} />
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;
