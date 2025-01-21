@@ -1,21 +1,18 @@
-import { useState } from "react";
 import "./App.css";
 import Home from "./pages/Home";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LoginSignup from "./pages/LoginSingUp";
-function App() {
-  const [count, setCount] = useState(0);
+import LandingPage from "./pages/LandingPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-  return (
-    <>
-      <Router>
-        <Routes>
-          <Route path="/Home" element={<Home />} />
-          <Route path="/" element={<LoginSignup />} />
-        </Routes>
-      </Router>
-    </>
-  );
+function App() {
+
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/Chat" element={<Home />} />
+                <Route path="/" element={<LandingPage />} />
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;
