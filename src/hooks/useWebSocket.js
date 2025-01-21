@@ -3,13 +3,15 @@ import { useEffect, useState } from "react";
 
 const useWebSocket = (url) => {
     const [ws, setWs] = useState(null);
-    const [messages, setMessages] = useState([]); // Initialize as an empty array
+    const [messages, setMessages] = useState([]);
+
+    const API_URL = import.meta.env.VITE_API_URL
 
     const fetchMessages = async () => {
         try {
-            const response = await axios.get('http://localhost:4200/api/messages');
+            const response = await axios.get(`${API_URL}/api/messages`);
             console.log(response.data.messages);
-            if (messages.length === 0) { // Check if messages is empty
+            if (messages.length === 0) {
                 setMessages(response.data.messages);
             }
         } catch (err) {

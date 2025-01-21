@@ -7,8 +7,10 @@ const ChatWindow = ({ updateUsers }) => {
     const clientID = localStorage.getItem("clientID");
     const messagesEndRef = useRef(null);
 
+    const API_URL = import.meta.env.VITE_API_URL
+
     const { messages, sendMessage } = useWebSocket(
-        `ws://localhost:4200?userID=${clientID}&username=${username}`
+        `${API_URL}?userID=${clientID}&username=${username}`
     );
     const [input, setInput] = useState("");
 

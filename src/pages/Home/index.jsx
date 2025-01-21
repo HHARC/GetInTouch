@@ -8,6 +8,8 @@ const HomePage = () => {
     const [darkMode, setDarkMode] = useState(false);
     const [users, setUsers] = useState([]);
 
+    const API_URL = import.meta.env.VITE_API_URL
+
     const toggleDarkMode = () => {
         setDarkMode(!darkMode);
         document.documentElement.classList.toggle("dark", !darkMode);
@@ -15,7 +17,7 @@ const HomePage = () => {
 
     const fetchUsers = async () => {
         try {
-            const response = await axios.get("http://localhost:4200/api/users");
+            const response = await axios.get(`${API_URL}/api/users`);
             setUsers(response.data.users)
         } catch (err) {
             console.error('Failed to fetch users: ', err);
