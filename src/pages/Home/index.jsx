@@ -22,7 +22,7 @@ const HomePage = () => {
 
       {/* Main Content */}
       <div className="flex h-[calc(100%-4rem)]">
-        <Sidebar />
+        <Sidebar users={[]} />
         <ChatWindow />
       </div>
     </div>

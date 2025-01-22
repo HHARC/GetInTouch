@@ -12,7 +12,7 @@ const ChatWindow = () => {
   const clientID = localStorage.getItem("clientID");
 
   const { messages, sendMessage } = useWebSocket(
-    `https://chat-back.up.railway.app?userID=${clientID}&username=${username}`
+    `ws://localhost:4200?userID=${clientID}&username=${username}`
   );
   const [input, setInput] = useState("");
 
