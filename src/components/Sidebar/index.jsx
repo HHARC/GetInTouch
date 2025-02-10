@@ -2,11 +2,11 @@
 import { useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa"; // Import the hamburger icon
 
-const Sidebar = ({ users }) => {
+const Sidebar = ({ users, startOneToOneChat, startGroupChat }) => {
   const [search, setSearch] = useState("");
-  const [activeUsers, setActiveUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State to toggle sidebar
+  const [selectedUsers, setSelectedUsers] = useState([]); // State to track selected users
 
   useEffect(() => {
     setFilteredUsers(
@@ -16,10 +16,17 @@ const Sidebar = ({ users }) => {
     );
   }, [search, users]);
 
-  useEffect(() => {
-    setActiveUsers(users);
-    setFilteredUsers(users);
-  }, [users]);
+  const handleProfileClick = (user) => {
+    startOneToOneChat(user);
+  };
+
+  const handleUserSelection = (user) => {
+    if (selectedUsers.some((u) => u.clientID === user.clientID)) {
+      setSelectedUsers(selectedUsers.filter((u) => u.clientID !== user.clientID));
+    } else {
+      setSelectedUsers([...selectedUsers, user]);
+    }
+  };
 
   return (
     <>
@@ -51,7 +58,12 @@ const Sidebar = ({ users }) => {
             filteredUsers.map((user) => (
               <div
                 key={user.clientID}
-                className="flex items-center space-x-3 p-3 bg-blue-400 dark:bg-gray-800 rounded-lg shadow-md hover:scale-105 transform transition-all cursor-pointer"
+                onClick={() => handleUserSelection(user)}
+                className={`flex items-center space-x-3 p-3 ${
+                  selectedUsers.some((u) => u.clientID === user.clientID)
+                    ? "bg-blue-600"
+                    : "bg-blue-400 dark:bg-gray-800"
+                } rounded-lg shadow-md hover:scale-105 transform transition-all cursor-pointer`}
               >
                 <img
                   src={user.avatar}
@@ -67,6 +79,16 @@ const Sidebar = ({ users }) => {
             <div className="text-center text-white">No users found</div>
           )}
         </div>
+
+        {/* Button to Start Group Chat */}
+        {selectedUsers.length > 1 && (
+          <button
+            onClick={() => startGroupChat(selectedUsers)}
+            className="w-full mt-4 px-4 py-2 bg-green-500 rounded-lg text-white font-medium hover:bg-green-600"
+          >
+            Start Group Chat
+          </button>
+        )}
       </div>
 
       {/* Overlay for mobile when sidebar is open */}
